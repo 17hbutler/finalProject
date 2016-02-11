@@ -36,7 +36,10 @@ weatherApp.controller('homeController', ['$scope','cityService','$http',function
         .success(function(data){
                     console.log("hurray");
                     $scope.description = data.weather[0].description; 
-                    $scope.
+                    $scope.temp = data.main.temp; 
+                    $scope.temp = ($scope.temp * (9/5))- 459.67; 
+                    $scope.temp = Math.round($scope.temp * 100) / 100;
+                    $scope.humid = data.main.humidity; 
                  })
         .error(
   

@@ -1,0 +1,14 @@
+#divback{
+    background-image: url(pics/blurredSky.jpg);
+}
+
+#temp{
+    text-align: center;
+    color: white;
+}
+#descript{
+    text-align: center;
+}
+#humid{
+    text-align: center;
+}
