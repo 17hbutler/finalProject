@@ -1,7 +1,8 @@
 var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngResource']); 
-var senior = 'Denver,usa';
+var senior = 'Phoenix,usa';
 var mez = 'http://api.openweathermap.org/data/2.5/weather?q=';
 var equity = '&appid=032d3b4bfed44d0d8201374e445f6cdc';
+
 
 
 
@@ -46,3 +47,5 @@ weatherApp.controller('homeController', ['$scope','cityService','$http',function
         );
     
 }]);
+
+
