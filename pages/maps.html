@@ -1,22 +1,5 @@
-<body onload="initialize()">
-<form action="#" onsubmit="showLocation();calcRoute(); return false;">
-       <input id="start" type="text" name="address1" value="55423" class="address_input" size="5" />
-       <input id="end" type="text" name="address2" value="55404" class="address_input" size="5" />
-<select id="price_per_mile">
-          <option value="1.00">1 Bedroom Apartment</option>
-          <option value="1.50">2 Bedroom Apartment</option>
-          <option value="2.00">3 Bedroom Apartment</option>
-          <option value="2.50">1 Bedroom Home</option>
-          <option value="3.00">2 Bedroom Home</option>
-          <option value="4.00">3 Bedroom Home</option>
-          <option value="4.50">Small Office Space</option>
-          <option value="5.00">Medium Office Space</option>
-          <option value="5.50">Large Office Space</option>
-</select>
-    <input id="admin_fee" type="text" name="admin-fee" value="" class="address_input" size="5" />
-<input type="submit" name="find" value="Search" />
-</form>
-    <p><strong>Distance Results:</strong><br/><span id="results"></span></p>
-    <p><strong>Price Results:</strong><br/><span id="price"></span></p>
-    <div id="map_canvas" style="top:265px;"></div>
-</body> 
+<div class='row'>
+    <div class='col-md-6 col-md-offset-3'>
+        {{name}}
+    </div>
+</div>
