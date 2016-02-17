@@ -1,8 +1,7 @@
 var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngResource']); 
-var senior = 'Phoenix,usa';
+var senior = 'Denver,usa';
 var mez = 'http://api.openweathermap.org/data/2.5/weather?q=';
 var equity = '&appid=032d3b4bfed44d0d8201374e445f6cdc';
-var map; 
 
 
 
@@ -14,12 +13,12 @@ weatherApp.config(function($routeProvider){
         templateUrl:'pages/home.html', 
         controller: 'homeController'
     })
-    .when('/maps', {
-        templateUrl:'pages/maps.html',
+    .when('/', {
+        templateUrl:'pages/home.html',
         controller: 'hotelController'
     })
-    .when('/maps1', {
-        templateUrl: 'pages/maps1.html',
+    .when('/maps', {
+        templateUrl: 'pages/maps.html',
         controller: 'MainCtrl'
     })
 })
@@ -27,15 +26,15 @@ weatherApp.config(function($routeProvider){
 
 
 //SERVICE
-weatherApp.service('cityService', function() 
+weatherApp.service('hotelDestination', function() 
     {
-    this.city = "Denver, CO";  
+    this.destination = "SFO";  
     });
 
 
 
 //CONTROLLERS
-weatherApp.controller('homeController', ['$scope','cityService','$http',function($scope, cityService,$http){
+weatherApp.controller('homeController', ['$scope','$http',function($scope,$http){
   
     $http.get(mez + senior + equity)
         .success(function(data){
@@ -52,9 +51,15 @@ weatherApp.controller('homeController', ['$scope','cityService','$http',function
     
 }]);
 
-weatherApp.controller('hotelController', ['$scope','$http', function($scope, $http){
+weatherApp.controller('hotelController', ['$scope','$http', 'hotelDestination', function($scope, $http, hotelDestination){
     
-    $http.get("https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=lTgIAFV3QaHWKZyUAhDBHdkAGmWSqvy8&location=DEN&check_in=2016-06-14&check_out=2016-06-16")
+    $scope.destination = hotelDestination.destination;
+    $scope.$watch('destination', function(){
+        hotelDestination.destination = $scope.destination;
+    });
+    
+   $scope.hotelInfo = function(){
+     $http.get("https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=lTgIAFV3QaHWKZyUAhDBHdkAGmWSqvy8&location=" + $scope.destination + "&check_in=2016-06-14&check_out=2016-06-16")
         .success(function(data){
             console.log('hurray');
             for(var i = 0; i < data.results.length; i++){
@@ -64,23 +69,25 @@ weatherApp.controller('hotelController', ['$scope','$http', function($scope, $ht
     .error(
         
     );
+   }
 }])
 
-weatherApp.controller('MainCtrl', function ($scope, $window) {
-    $window.map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: -34.397,
-            lng: 150.644
-        },
-        zoom: 8
-    });
-});
 
-
-
-function mapInit() {
-     map = new google.maps.Map(document.getElementById('map'), {
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
     zoom: 8
   });
 }
+ 
+weatherApp.controller('MainCtrl', function ($scope, $window) {
+    $window.map;
+    $window.initMap = function() {
+      $window.map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+
+  });

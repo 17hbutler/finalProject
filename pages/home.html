@@ -1,8 +1,25 @@
-<div class="row">
+ <div class="row">
     <div class="col-md-6 col-md-offset-3" id="divback">
         <h4>Denver,CO</h4>
         <h1 id="temp">{{temp}}</h1>
         <p id="descript">{{description}}</p>
         <p id="humid">{{humid}}%</p>
+     </div>
+</div>
+
+
+<divv class = 'row'>
+    <div col-md-6 col-md-offset-3 id='inputs'>
+        <h1>Hotel Search</h1>
+        <br>
+        <h3>Where would you like to go!</h3>
+        <input type="text" ng-model = 'destination'>
+        <button type="button" ng-click="hotelInfo()">Hotel Search</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h4>Here is a Hotel near your destinations airport</h4>
+            <h5>{{name}}</h5>
     </div>
 </div>
