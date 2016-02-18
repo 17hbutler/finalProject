@@ -1,4 +1,4 @@
-var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngResource']); 
+var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngResource', 'uiGmapgoogle-maps']); 
 var senior = 'Denver,usa';
 var mez = 'http://api.openweathermap.org/data/2.5/weather?q=';
 var equity = '&appid=032d3b4bfed44d0d8201374e445f6cdc';
@@ -9,10 +9,10 @@ var equity = '&appid=032d3b4bfed44d0d8201374e445f6cdc';
 //CONFIG
 weatherApp.config(function($routeProvider){
     $routeProvider
-    .when('/', {
-        templateUrl:'pages/home.html', 
-        controller: 'homeController'
-    })
+//    .when('/', {
+//        templateUrl:'pages/home.html', 
+//        controller: 'hotelController'
+//    })
     .when('/', {
         templateUrl:'pages/home.html',
         controller: 'hotelController'
@@ -28,14 +28,20 @@ weatherApp.config(function($routeProvider){
 //SERVICE
 weatherApp.service('hotelDestination', function() 
     {
-    this.destination = "SFO";  
+    this.destination = "DEN";  
     });
 
 
 
 //CONTROLLERS
-weatherApp.controller('homeController', ['$scope','$http',function($scope,$http){
-  
+//weatherApp.controller('homeController', ['$scope','$http',function($scope,$http){
+//  
+//    
+//}]);
+
+weatherApp.controller('hotelController', ['$scope','$http', 'hotelDestination', function($scope, $http, hotelDestination){
+    
+    
     $http.get(mez + senior + equity)
         .success(function(data){
                     console.log("hurray");
@@ -49,9 +55,9 @@ weatherApp.controller('homeController', ['$scope','$http',function($scope,$http)
   
         );
     
-}]);
-
-weatherApp.controller('hotelController', ['$scope','$http', 'hotelDestination', function($scope, $http, hotelDestination){
+    
+    
+    
     
     $scope.destination = hotelDestination.destination;
     $scope.$watch('destination', function(){
@@ -72,22 +78,12 @@ weatherApp.controller('hotelController', ['$scope','$http', 'hotelDestination', 
    }
 }])
 
-
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
-}
- 
-weatherApp.controller('MainCtrl', function ($scope, $window) {
-    $window.map;
-    $window.initMap = function() {
-      $window.map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-    }
-
-  });
+weatherApp.controller('MainCtrl', ['$scope', '$interval', function($scope, $interval){
+         $scope.map = {
+                        center: {
+                                latitude: 39.651021,
+                                longitude:  -105.036737
+                        },
+                        zoom: 8
+                };
+}])
